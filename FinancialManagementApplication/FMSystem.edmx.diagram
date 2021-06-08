@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fcb3d60b0fec417da43c788548e4ec41" Name="Diagram1" ZoomLevel="77" >
+        <AssociationConnector Association="FMSystem.UserInfoContact1" />
+        <AssociationConnector Association="FMSystem.UserInfoIncome1" />
+        <AssociationConnector Association="FMSystem.UserInfoExpense1" ManuallyRouted="true" >
+          <ConnectorPoint PointX="6.75" PointY="5.40625" />
+          <ConnectorPoint PointX="7.4045609372910821" PointY="5.40625" />
+          <ConnectorPoint PointX="7.4045609372910821" PointY="8.9172270186173215" />
+          <ConnectorPoint PointX="7.666666666666667" PointY="8.9172270186173215" />
+          <ConnectorPoint PointX="7.833333333333333" PointY="8.9172270186173215" />
+          <ConnectorPoint PointX="8.9166666666666661" PointY="8.9172270186173215" />
+          <ConnectorPoint PointX="9.0833333333333339" PointY="8.9172270186173215" />
+          <ConnectorPoint PointX="9.78125" PointY="8.9172270186173215" />
+          <ConnectorPoint PointX="9.78125" PointY="9.375" />
+        </AssociationConnector>
+        <AssociationConnector Association="FMSystem.ContactIncome1" ManuallyRouted="false" >
+        </AssociationConnector>
+        <AssociationConnector Association="FMSystem.ContactExpense1" />
+        <EntityTypeShape EntityType="FMSystem.UserInfo" Width="1.5" PointX="5.25" PointY="6.375" />
+        <EntityTypeShape EntityType="FMSystem.Contact" Width="1.5" PointX="8" PointY="6.5" />
+        <EntityTypeShape EntityType="FMSystem.Income" Width="1.5" PointX="5.375" PointY="9.875" />
+        <EntityTypeShape EntityType="FMSystem.Expense" Width="1.5" PointX="8.25" PointY="9.75" />
+        <AssociationConnector Association="FMSystem.UserInfoExpense" ManuallyRouted="true" >
+          <ConnectorPoint PointX="5.28125" PointY="8.9321907552083335" />
+          <ConnectorPoint PointX="5.28125" PointY="9.4939691754314239" />
+          <ConnectorPoint PointX="5.979166666666667" PointY="9.4939691754314239" />
+          <ConnectorPoint PointX="6.145833333333333" PointY="9.4939691754314239" />
+          <ConnectorPoint PointX="6.760416666666667" PointY="9.4939691754314239" />
+          <ConnectorPoint PointX="6.927083333333333" PointY="9.4939691754314239" />
+          <ConnectorPoint PointX="7.2703125" PointY="9.4939691754314239" />
+          <ConnectorPoint PointX="7.2703125" PointY="9.78125" />
+          <ConnectorPoint PointX="8.25" PointY="9.78125" />
+        </AssociationConnector>
+        <AssociationConnector Association="FMSystem.ContactIncome" />
+        <AssociationConnector Association="FMSystem.ContactExpense" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

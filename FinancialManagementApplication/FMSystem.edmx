@@ -1,0 +1,392 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FMSystem.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="FMSystemStoreContainer">
+    <EntitySet Name="Categories" EntityType="FMSystem.Store.Categories" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserInfoes" EntityType="FMSystem.Store.UserInfoes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Contacts" EntityType="FMSystem.Store.Contacts" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Incomes" EntityType="FMSystem.Store.Incomes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Expenses" EntityType="FMSystem.Store.Expenses" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="UserInfoContact1" Association="FMSystem.Store.UserInfoContact1">
+      <End Role="UserInfo" EntitySet="UserInfoes" />
+      <End Role="Contact" EntitySet="Contacts" />
+    </AssociationSet>
+    <AssociationSet Name="UserInfoIncome1" Association="FMSystem.Store.UserInfoIncome1">
+      <End Role="UserInfo" EntitySet="UserInfoes" />
+      <End Role="Income" EntitySet="Incomes" />
+    </AssociationSet>
+    <AssociationSet Name="UserInfoExpense" Association="FMSystem.Store.UserInfoExpense">
+      <End Role="UserInfo" EntitySet="UserInfoes" />
+      <End Role="Expense" EntitySet="Expenses" />
+    </AssociationSet>
+    <AssociationSet Name="ContactIncome" Association="FMSystem.Store.ContactIncome">
+      <End Role="Contact" EntitySet="Contacts" />
+      <End Role="Income" EntitySet="Incomes" />
+    </AssociationSet>
+    <AssociationSet Name="ContactExpense" Association="FMSystem.Store.ContactExpense">
+      <End Role="Contact" EntitySet="Contacts" />
+      <End Role="Expense" EntitySet="Expenses" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Categories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserInfoes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Contacts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UserInfoId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Incomes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Category" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Amount" Type="decimal" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="UserInfoId" Type="int" Nullable="false" />
+    <Property Name="ContactId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Expenses">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Category" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Amount" Type="decimal" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="UserInfoId" Type="int" Nullable="false" />
+    <Property Name="ContactId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="UserInfoContact1">
+    <End Role="UserInfo" Type="FMSystem.Store.UserInfoes" Multiplicity="1" />
+    <End Role="Contact" Type="FMSystem.Store.Contacts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Contact">
+        <PropertyRef Name="UserInfoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserInfoIncome1">
+    <End Role="UserInfo" Type="FMSystem.Store.UserInfoes" Multiplicity="1" />
+    <End Role="Income" Type="FMSystem.Store.Incomes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Income">
+        <PropertyRef Name="UserInfoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserInfoExpense">
+    <End Role="UserInfo" Type="FMSystem.Store.UserInfoes" Multiplicity="1" />
+    <End Role="Expense" Type="FMSystem.Store.Expenses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Expense">
+        <PropertyRef Name="UserInfoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ContactIncome">
+    <End Role="Contact" Type="FMSystem.Store.Contacts" Multiplicity="1" />
+    <End Role="Income" Type="FMSystem.Store.Incomes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contact">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Income">
+        <PropertyRef Name="ContactId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ContactExpense">
+    <End Role="Contact" Type="FMSystem.Store.Contacts" Multiplicity="1" />
+    <End Role="Expense" Type="FMSystem.Store.Expenses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contact">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Expense">
+        <PropertyRef Name="ContactId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="FMSystem" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="FMSystemContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="FMSystem.Category" />
+          <EntitySet Name="UserInfoes" EntityType="FMSystem.UserInfo" />
+          <EntitySet Name="Contacts" EntityType="FMSystem.Contact" />
+          <EntitySet Name="Incomes" EntityType="FMSystem.Income" />
+          <EntitySet Name="Expenses" EntityType="FMSystem.Expense" />
+          <AssociationSet Name="UserInfoContact1" Association="FMSystem.UserInfoContact1">
+            <End Role="UserInfo" EntitySet="UserInfoes" />
+            <End Role="Contact" EntitySet="Contacts" />
+          </AssociationSet>
+          <AssociationSet Name="UserInfoIncome1" Association="FMSystem.UserInfoIncome1">
+            <End Role="UserInfo" EntitySet="UserInfoes" />
+            <End Role="Income" EntitySet="Incomes" />
+          </AssociationSet>
+          <AssociationSet Name="UserInfoExpense" Association="FMSystem.UserInfoExpense">
+            <End Role="UserInfo" EntitySet="UserInfoes" />
+            <End Role="Expense" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="ContactIncome" Association="FMSystem.ContactIncome">
+            <End Role="Contact" EntitySet="Contacts" />
+            <End Role="Income" EntitySet="Incomes" />
+          </AssociationSet>
+          <AssociationSet Name="ContactExpense" Association="FMSystem.ContactExpense">
+            <End Role="Contact" EntitySet="Contacts" />
+            <End Role="Expense" EntitySet="Expenses" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" />
+          <Property Name="LastName" Type="String" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" />
+          <NavigationProperty Name="Contacts" Relationship="FMSystem.UserInfoContact1" FromRole="UserInfo" ToRole="Contact" />
+          <NavigationProperty Name="Incomes" Relationship="FMSystem.UserInfoIncome1" FromRole="UserInfo" ToRole="Income" />
+          <NavigationProperty Name="Expenses" Relationship="FMSystem.UserInfoExpense" FromRole="UserInfo" ToRole="Expense" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" />
+          <Property Name="Address" Type="String" Nullable="false" />
+          <NavigationProperty Name="UserInfo" Relationship="FMSystem.UserInfoContact1" FromRole="Contact" ToRole="UserInfo" />
+          <Property Name="UserInfoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Incomes" Relationship="FMSystem.ContactIncome" FromRole="Contact" ToRole="Income" />
+          <NavigationProperty Name="Expenses" Relationship="FMSystem.ContactExpense" FromRole="Contact" ToRole="Expense" />
+        </EntityType>
+        <EntityType Name="Income">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Type" Type="String" Nullable="false" />
+          <Property Name="Category" Type="String" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="UserInfo" Relationship="FMSystem.UserInfoIncome1" FromRole="Income" ToRole="UserInfo" />
+          <Property Name="UserInfoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Contact" Relationship="FMSystem.ContactIncome" FromRole="Income" ToRole="Contact" />
+          <Property Name="ContactId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Expense">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Type" Type="String" Nullable="false" />
+          <Property Name="Category" Type="String" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" ConcurrencyMode="None" cg:GetterAccess="Public" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="UserInfo" Relationship="FMSystem.UserInfoExpense" FromRole="Expense" ToRole="UserInfo" />
+          <Property Name="UserInfoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Contact" Relationship="FMSystem.ContactExpense" FromRole="Expense" ToRole="Contact" />
+          <Property Name="ContactId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="UserInfoContact1">
+          <End Type="FMSystem.UserInfo" Role="UserInfo" Multiplicity="1" />
+          <End Type="FMSystem.Contact" Role="Contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contact">
+              <PropertyRef Name="UserInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserInfoIncome1">
+          <End Type="FMSystem.UserInfo" Role="UserInfo" Multiplicity="1" />
+          <End Type="FMSystem.Income" Role="Income" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Income">
+              <PropertyRef Name="UserInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserInfoExpense">
+          <End Type="FMSystem.UserInfo" Role="UserInfo" Multiplicity="1" />
+          <End Type="FMSystem.Expense" Role="Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expense">
+              <PropertyRef Name="UserInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ContactIncome">
+          <End Type="FMSystem.Contact" Role="Contact" Multiplicity="1" />
+          <End Type="FMSystem.Income" Role="Income" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contact">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Income">
+              <PropertyRef Name="ContactId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ContactExpense">
+          <End Type="FMSystem.Contact" Role="Contact" Multiplicity="1" />
+          <End Type="FMSystem.Expense" Role="Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contact">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expense">
+              <PropertyRef Name="ContactId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FMSystemStoreContainer" CdmEntityContainer="FMSystemContainer">
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="IsTypeOf(FMSystem.Category)">
+        <MappingFragment StoreEntitySet="Categories">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserInfoes">
+      <EntityTypeMapping TypeName="IsTypeOf(FMSystem.UserInfo)">
+        <MappingFragment StoreEntitySet="UserInfoes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Contacts">
+      <EntityTypeMapping TypeName="IsTypeOf(FMSystem.Contact)">
+        <MappingFragment StoreEntitySet="Contacts">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="UserInfoId" ColumnName="UserInfoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Incomes">
+      <EntityTypeMapping TypeName="IsTypeOf(FMSystem.Income)">
+        <MappingFragment StoreEntitySet="Incomes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="UserInfoId" ColumnName="UserInfoId" />
+          <ScalarProperty Name="ContactId" ColumnName="ContactId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Expenses">
+      <EntityTypeMapping TypeName="IsTypeOf(FMSystem.Expense)">
+        <MappingFragment StoreEntitySet="Expenses">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="UserInfoId" ColumnName="UserInfoId" />
+          <ScalarProperty Name="ContactId" ColumnName="ContactId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

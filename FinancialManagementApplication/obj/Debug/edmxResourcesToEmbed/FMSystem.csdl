@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="FMSystem" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="FMSystemContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Categories" EntityType="FMSystem.Category" />
+    <EntitySet Name="UserInfoes" EntityType="FMSystem.UserInfo" />
+    <EntitySet Name="Contacts" EntityType="FMSystem.Contact" />
+    <EntitySet Name="Incomes" EntityType="FMSystem.Income" />
+    <EntitySet Name="Expenses" EntityType="FMSystem.Expense" />
+    <AssociationSet Name="UserInfoContact1" Association="FMSystem.UserInfoContact1">
+      <End Role="UserInfo" EntitySet="UserInfoes" />
+      <End Role="Contact" EntitySet="Contacts" />
+    </AssociationSet>
+    <AssociationSet Name="UserInfoIncome1" Association="FMSystem.UserInfoIncome1">
+      <End Role="UserInfo" EntitySet="UserInfoes" />
+      <End Role="Income" EntitySet="Incomes" />
+    </AssociationSet>
+    <AssociationSet Name="UserInfoExpense" Association="FMSystem.UserInfoExpense">
+      <End Role="UserInfo" EntitySet="UserInfoes" />
+      <End Role="Expense" EntitySet="Expenses" />
+    </AssociationSet>
+    <AssociationSet Name="ContactIncome" Association="FMSystem.ContactIncome">
+      <End Role="Contact" EntitySet="Contacts" />
+      <End Role="Income" EntitySet="Incomes" />
+    </AssociationSet>
+    <AssociationSet Name="ContactExpense" Association="FMSystem.ContactExpense">
+      <End Role="Contact" EntitySet="Contacts" />
+      <End Role="Expense" EntitySet="Expenses" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" Nullable="false" />
+    <Property Name="LastName" Type="String" Nullable="false" />
+    <Property Name="Email" Type="String" Nullable="false" />
+    <Property Name="Password" Type="String" Nullable="false" />
+    <NavigationProperty Name="Contacts" Relationship="FMSystem.UserInfoContact1" FromRole="UserInfo" ToRole="Contact" />
+    <NavigationProperty Name="Incomes" Relationship="FMSystem.UserInfoIncome1" FromRole="UserInfo" ToRole="Income" />
+    <NavigationProperty Name="Expenses" Relationship="FMSystem.UserInfoExpense" FromRole="UserInfo" ToRole="Expense" />
+  </EntityType>
+  <EntityType Name="Contact">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <Property Name="PhoneNumber" Type="String" Nullable="false" />
+    <Property Name="Email" Type="String" Nullable="false" />
+    <Property Name="Address" Type="String" Nullable="false" />
+    <NavigationProperty Name="UserInfo" Relationship="FMSystem.UserInfoContact1" FromRole="Contact" ToRole="UserInfo" />
+    <Property Name="UserInfoId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Incomes" Relationship="FMSystem.ContactIncome" FromRole="Contact" ToRole="Income" />
+    <NavigationProperty Name="Expenses" Relationship="FMSystem.ContactExpense" FromRole="Contact" ToRole="Expense" />
+  </EntityType>
+  <EntityType Name="Income">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <Property Name="Type" Type="String" Nullable="false" />
+    <Property Name="Category" Type="String" Nullable="false" />
+    <Property Name="Amount" Type="Decimal" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="UserInfo" Relationship="FMSystem.UserInfoIncome1" FromRole="Income" ToRole="UserInfo" />
+    <Property Name="UserInfoId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Contact" Relationship="FMSystem.ContactIncome" FromRole="Income" ToRole="Contact" />
+    <Property Name="ContactId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Expense">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <Property Name="Type" Type="String" Nullable="false" />
+    <Property Name="Category" Type="String" Nullable="false" />
+    <Property Name="Amount" Type="Decimal" Nullable="false" ConcurrencyMode="None" cg:GetterAccess="Public" />
+    <Property Name="Date" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="UserInfo" Relationship="FMSystem.UserInfoExpense" FromRole="Expense" ToRole="UserInfo" />
+    <Property Name="UserInfoId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Contact" Relationship="FMSystem.ContactExpense" FromRole="Expense" ToRole="Contact" />
+    <Property Name="ContactId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="UserInfoContact1">
+    <End Type="FMSystem.UserInfo" Role="UserInfo" Multiplicity="1" />
+    <End Type="FMSystem.Contact" Role="Contact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Contact">
+        <PropertyRef Name="UserInfoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserInfoIncome1">
+    <End Type="FMSystem.UserInfo" Role="UserInfo" Multiplicity="1" />
+    <End Type="FMSystem.Income" Role="Income" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Income">
+        <PropertyRef Name="UserInfoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserInfoExpense">
+    <End Type="FMSystem.UserInfo" Role="UserInfo" Multiplicity="1" />
+    <End Type="FMSystem.Expense" Role="Expense" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Expense">
+        <PropertyRef Name="UserInfoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ContactIncome">
+    <End Type="FMSystem.Contact" Role="Contact" Multiplicity="1" />
+    <End Type="FMSystem.Income" Role="Income" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contact">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Income">
+        <PropertyRef Name="ContactId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ContactExpense">
+    <End Type="FMSystem.Contact" Role="Contact" Multiplicity="1" />
+    <End Type="FMSystem.Expense" Role="Expense" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contact">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Expense">
+        <PropertyRef Name="ContactId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
